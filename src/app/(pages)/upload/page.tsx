@@ -3,7 +3,7 @@
 import HeroSection from "@/components/HeroSection";
 import React, { useState } from "react";
 
-const page = () => {
+const UploadPage = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<string>("");
@@ -49,3 +49,5 @@ const page = () => {
     </div>
   );
 };
+
+export default UploadPage;

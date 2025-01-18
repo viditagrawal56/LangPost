@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-// import { ChevronDown, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
