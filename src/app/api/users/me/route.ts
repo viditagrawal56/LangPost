@@ -25,7 +25,6 @@ export async function GET(req: NextRequest) {
         id: true,
         name: true,
         username: true,
-        avatar: true,
         bio: true,
         createdAt: true,
         site: true,

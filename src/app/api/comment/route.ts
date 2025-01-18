@@ -67,7 +67,6 @@ export async function GET(req: NextRequest) {
           select: {
             id: true,
             username: true,
-            avatar: true,
             name: true,
             createdAt: true,
             updatedAt: true,
@@ -81,7 +80,6 @@ export async function GET(req: NextRequest) {
               select: {
                 id: true,
                 username: true,
-                avatar: true,
                 name: true,
                 createdAt: true,
                 updatedAt: true,

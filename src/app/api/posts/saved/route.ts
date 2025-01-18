@@ -25,7 +25,6 @@ export async function GET(req: NextRequest) {
             author: {
               select: {
                 id: true,
-                avatar: true,
                 username: true,
                 name: true,
               },

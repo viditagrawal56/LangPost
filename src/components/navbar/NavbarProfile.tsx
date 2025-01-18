@@ -58,7 +58,7 @@ const NavbarProfile = () => {
         <NavbarItem className="group max-md:hidden">
           <Button
             as={Link}
-            href={"/new"}
+            href={"/upload"}
             variant="ghost"
             color="primary"
             className="border-1.5 group-hover:underline"
