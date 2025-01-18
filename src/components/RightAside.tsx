@@ -88,9 +88,6 @@ const RightAside = () => {
                     <User
                       name={saved.post.author.name}
                       description={"@" + saved.post.author.username}
-                      avatarProps={{
-                        src: saved.post.author.avatar,
-                      }}
                       as={Link}
                       href={`/${saved.post.author.username}`}
                     />

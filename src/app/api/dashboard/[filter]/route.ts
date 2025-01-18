@@ -26,13 +26,11 @@ export async function GET(
           id: true,
           username: true,
           name: true,
-          avatar: true,
           follower: {
             select: {
               id: true,
               username: true,
               name: true,
-              avatar: true,
               bio: true,
             },
           },
@@ -45,13 +43,11 @@ export async function GET(
           id: true,
           username: true,
           name: true,
-          avatar: true,
           following: {
             select: {
               id: true,
               username: true,
               name: true,
-              avatar: true,
               bio: true,
             },
           },
@@ -64,7 +60,6 @@ export async function GET(
           id: true,
           username: true,
           name: true,
-          avatar: true,
           followingTags: true,
         },
       });
