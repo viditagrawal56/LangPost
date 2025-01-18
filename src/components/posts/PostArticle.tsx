@@ -18,7 +18,6 @@ import DeletePostModal from "./DeletePostModal";
 import { useRouter } from "next/navigation";
 
 const PostArticle = ({ post }: { post: TPost }) => {
-  console.log(post);
   const router = useRouter();
 
   const { isOpen, onOpenChange, onOpen, onClose } = useDisclosure();
@@ -82,14 +81,7 @@ const PostArticle = ({ post }: { post: TPost }) => {
             {post.title}
           </h1>
         </header>
-        <div className="prose">
-          <Blocks
-            data={post.content}
-            renderers={{
-              checkList: Checklist,
-            }}
-          />
-        </div>
+        <div className="prose">{post.content}</div>
       </article>
       <hr className="pb-8" />
       <Comments post={post} />

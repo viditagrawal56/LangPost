@@ -61,7 +61,7 @@ export async function GET(
 //@access          protected
 export async function PATCH(req: NextRequest) {
   try {
-    const { title, content, image, userId, postId, type } = await req.json();
+    const { title, content, userId, postId, type } = await req.json();
 
     const userID = await getDataFromToken(req);
     if (!userID) {
