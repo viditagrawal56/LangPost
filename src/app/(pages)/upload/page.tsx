@@ -19,6 +19,8 @@ const UploadPage = () => {
         formData.append("files", file);
       });
 
+      formData.append("title", files[0].name.split(".")[0]);
+
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
