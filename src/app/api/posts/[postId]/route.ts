@@ -29,6 +29,7 @@ export async function GET(
                 id: true,
                 path: true,
                 title: true,
+                content: true,
               },
             },
           },

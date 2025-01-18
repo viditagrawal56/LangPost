@@ -18,6 +18,7 @@ import DeletePostModal from "./DeletePostModal";
 import { useRouter } from "next/navigation";
 
 const PostArticle = ({ post }: { post: TPost }) => {
+  console.log(post);
   const router = useRouter();
 
   const { isOpen, onOpenChange, onOpen, onClose } = useDisclosure();

@@ -1,8 +1,21 @@
-import { NextResponse } from "next/server";
+import prisma from "@/lib/db";
+import { getDataFromToken } from "@/utils/getDataFromToken";
+import { NextRequest, NextResponse } from "next/server";
 
 const targetLanguages = ["hi", "hu", "ta", "kn", "bn", "mr", "ml", "pa", "or"];
 
-// Add delay helper function
+const languageMap: { [key: string]: string } = {
+  hi: "hindi",
+  ta: "tamil",
+  kn: "kannada",
+  bn: "bengali",
+  mr: "marathi",
+  ml: "malayalam",
+  pa: "punjabi",
+  or: "odia",
+  hu: "hungarian",
+};
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function translateText(html: string, targetLang: string) {
@@ -21,7 +34,6 @@ async function translateText(html: string, targetLang: string) {
         to: targetLang,
         html: html,
       }),
-      // Add timeout
       signal: AbortSignal.timeout(10000), // 10 second timeout
     };
 
@@ -34,17 +46,27 @@ async function translateText(html: string, targetLang: string) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(`Translation error for ${targetLang}:`, error);
+    console.error("Translation error:", error);
     throw error;
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const files = formData.getAll("files");
+    const title = formData.get("title")?.toString() || "Untitled";
+    const userId = await getDataFromToken(request);
     let combinedText = "";
 
+    if (!userId || userId.trim() === "") {
+      return NextResponse.json(
+        { success: false, error: "User ID is required" },
+        { status: 400 }
+      );
+    }
+
+    // Process uploaded files
     for (const file of files) {
       if (file instanceof File) {
         const buffer = await file.arrayBuffer();
@@ -53,35 +75,66 @@ export async function POST(request: Request) {
       }
     }
 
-    const translations: { [key: string]: string } = {};
+    // Create base English post
+    const basePost = await prisma.post.create({
+      data: {
+        title,
+        content: combinedText,
+        path: `${title.toLowerCase().replace(/\s+/g, "-")}`,
+        language: "en",
+        type: "PUBLISHED",
+        authorId: userId,
+      },
+    });
+
+    const translations = [];
+
+    // Create translated versions
     for (const lang of targetLanguages) {
       try {
-        // Add delay between requests to avoid rate limiting
-        await delay(1000);
-        const result = await translateText(combinedText, lang);
-        if (!result.trans) {
-          throw new Error("Translation response missing");
+        await delay(1000); // Rate limiting
+        const translatedContent = await translateText(combinedText, lang);
+
+        if (!translatedContent.trans) {
+          continue;
         }
-        translations[lang] = result.trans;
-      } catch (error: any) {
-        console.error(`Error translating to ${lang}:`, error);
-        translations[lang] = `Error translating to ${lang}: ${error.message}`;
+
+        const translatedPost = await prisma.post.create({
+          data: {
+            title: `${title} (${languageMap[lang]})`,
+            content: translatedContent.trans,
+            path: `${title.toLowerCase().replace(/\s+/g, "-")}-${
+              languageMap[lang]
+            }`,
+            language: lang,
+            type: "PUBLISHED",
+            authorId: userId,
+            originalId: basePost.id,
+          },
+        });
+
+        translations.push({
+          language: lang,
+          path: translatedPost.path,
+          title: translatedPost.title,
+        });
+      } catch (error) {
+        console.error(`Translation failed for ${lang}:`, error);
       }
     }
 
     return NextResponse.json({
-      message: "Files processed and translated successfully",
-      original: combinedText.trim(),
+      success: true,
+      original: {
+        path: basePost.path,
+        title: basePost.title,
+      },
       translations,
     });
-  } catch (error) {
-    console.error("Main processing error:", error);
+  } catch (error: any) {
+    console.error("Upload error:", error);
     return NextResponse.json(
-      {
-        error: "Error processing files",
-        details:
-          error instanceof Error ? error.message : "Unknown error occurred",
-      },
+      { success: false, error: error.message },
       { status: 500 }
     );
   }

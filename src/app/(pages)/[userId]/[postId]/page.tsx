@@ -50,7 +50,6 @@ const Page = ({ params }: TPostProp) => {
       </div>
     );
   }
-
   return (
     <>
       <main className="grid grid-cols-1 md:grid-cols-[65%_35%] p-2 md:py-6 md:px-16 h-full gap-4">
