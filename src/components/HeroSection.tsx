@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ChevronDown, Upload } from "lucide-react";
 
 interface HeroSectionProps {
   onFileUpload: (files: File[]) => void;
@@ -54,10 +55,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 <option>French</option>
                 <option>German</option>
               </select>
-              {/* <ChevronDown
+              <ChevronDown
                 className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400"
                 size={20}
-              /> */}
+              />
             </div>
           </div>
 
@@ -71,7 +72,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             }`}
           >
             <input {...getInputProps()} disabled={isUploading} />
-            {/* <Upload className="mx-auto mb-4 text-gray-400" size={48} /> */}
+            <Upload className="mx-auto mb-4 text-gray-400" size={48} />
             {isDragActive ? (
               <p className="text-blue-500">Drop the files here ...</p>
             ) : (
