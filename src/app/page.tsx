@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import HeroSection from "./components/HeroSection/hero-section";
 
 const App: React.FC = () => {
