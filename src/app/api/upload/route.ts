@@ -9,8 +9,9 @@ export async function POST(request: Request) {
 
     for (const file of files) {
       if (file instanceof File) {
-        const text = await file.text();
-        combinedText += text + "\n";
+        const buffer = await file.arrayBuffer();
+        const text = Buffer.from(buffer).toString("utf-8");
+        combinedText += text.replace(/[\r\n]+/g, " ");
       }
     }
 
