@@ -6,15 +6,21 @@ import { Input } from "@/components/ui/input";
 
 interface HeroSectionProps {
   onFileUpload: (files: File[]) => void;
+  isUploading?: boolean;
+  uploadStatus?: string;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ onFileUpload }) => {
+const HeroSection: React.FC<HeroSectionProps> = ({
+  onFileUpload,
+  isUploading = false,
+  uploadStatus = "",
+}) => {
   const [files, setFiles] = useState<File[]>([]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       setFiles(acceptedFiles);
-      onFileUpload(acceptedFiles); // Send files to the parent component
+      onFileUpload(acceptedFiles);
     },
     [onFileUpload]
   );
@@ -65,7 +71,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onFileUpload }) => {
                 : "border-gray-600 hover:border-gray-500"
             }`}
           >
-            <input {...getInputProps()} />
+            <input {...getInputProps()} disabled={isUploading} />
             <Upload className="mx-auto mb-4 text-gray-400" size={48} />
             {isDragActive ? (
               <p className="text-blue-500">Drop the files here ...</p>
@@ -75,6 +81,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onFileUpload }) => {
               </p>
             )}
           </div>
+
+          {/* Upload Status */}
+          {uploadStatus && (
+            <div
+              className={`mb-4 text-center ${
+                uploadStatus.includes("failed")
+                  ? "text-red-500"
+                  : "text-green-500"
+              }`}
+            >
+              {uploadStatus}
+            </div>
+          )}
 
           {files.length > 0 && (
             <div className="mb-6">
@@ -87,8 +106,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onFileUpload }) => {
             </div>
           )}
 
-          <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-            Translate Now
+          <Button
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            disabled={isUploading || files.length === 0}
+          >
+            {isUploading ? "Uploading..." : "Translate Now"}
           </Button>
         </div>
       </div>
