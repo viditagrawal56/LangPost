@@ -1,4 +1,5 @@
 import prisma from "@/lib/db";
+import { BLEUCalculator } from "@/utils/BLEU";
 import { getDataFromToken } from "@/utils/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -18,7 +19,7 @@ const languageMap: { [key: string]: string } = {
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function translateText(html: string, targetLang: string) {
+async function translateTextGoogle(html: string, targetLang: string) {
   try {
     const url =
       "https://google-translate113.p.rapidapi.com/api/v1/translator/html";
@@ -51,11 +52,49 @@ async function translateText(html: string, targetLang: string) {
   }
 }
 
+async function translateTextRev(content: string) {
+  try {
+    const url = "https://revapi.reverieinc.com/";
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "REV-API-KEY": "d23590b757a07f3beef0ebd545c6a88317411672",
+        "REV-APP-ID": "com.tanmaytambat01",
+        src_lang: "en",
+        tgt_lang: "hi,as,bn,gu,kn,ml,mr,or,pa,ta,te",
+        domain: "generic",
+        "REV-APPNAME": "localization",
+        "REV-APPVERSION": "3.0",
+      },
+      body: JSON.stringify({
+        enableNmt: true,
+        enableLookup: true,
+        data: [content],
+      }),
+      signal: AbortSignal.timeout(10000), // 10 second timeout
+    };
+
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Translation error:", error);
+    throw error;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const files = formData.getAll("files");
     const title = formData.get("title")?.toString() || "Untitled";
+    const ext = formData.get("ext")?.toString();
     const userId = await getDataFromToken(request);
     let combinedText = "";
 
@@ -88,12 +127,14 @@ export async function POST(request: NextRequest) {
     });
 
     const translations = [];
+    const googleTranslations = new Map();
+    const bleuScores = [];
 
     // Create translated versions
     for (const lang of targetLanguages) {
       try {
         await delay(1000); // Rate limiting
-        const translatedContent = await translateText(combinedText, lang);
+        const translatedContent = await translateTextGoogle(combinedText, lang);
 
         if (!translatedContent.trans) {
           continue;
@@ -112,6 +153,7 @@ export async function POST(request: NextRequest) {
             originalId: basePost.id,
           },
         });
+        googleTranslations.set(lang, translatedContent.trans);
 
         translations.push({
           language: lang,
@@ -123,6 +165,30 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    try {
+      let translatedContent = await translateTextRev(combinedText);
+      console.log(translatedContent);
+      let responseList = translatedContent.responseList[0];
+      let outStrings = responseList.outStrings;
+      for (const [lang, googleTrans] of googleTranslations.entries()) {
+        if (outStrings[lang]) {
+          const score = BLEUCalculator.calculateBLEU(
+            googleTrans,
+            outStrings[lang]
+          );
+          bleuScores.push({
+            language: lang,
+            languageName: languageMap[lang],
+            score: score,
+            googleTranslation: googleTrans,
+            revTranslation: outStrings[lang],
+          });
+        }
+      }
+    } catch (error) {
+      console.error(`Translation failed for Rev API:`, error);
+    }
+    console.log(bleuScores);
     return NextResponse.json({
       success: true,
       original: {
@@ -130,6 +196,9 @@ export async function POST(request: NextRequest) {
         title: basePost.title,
       },
       translations,
+      comparison: {
+        bleuScores,
+      },
     });
   } catch (error: any) {
     console.error("Upload error:", error);

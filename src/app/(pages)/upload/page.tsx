@@ -20,6 +20,7 @@ const UploadPage = () => {
       });
 
       formData.append("title", files[0].name.split(".")[0]);
+      formData.append("ext", files[0].name.split(".")[1]);
 
       const response = await fetch("/api/upload", {
         method: "POST",
