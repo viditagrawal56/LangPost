@@ -150,11 +150,16 @@ export async function POST(request: NextRequest) {
           // Handle MP4 file
           const transcribedText = await processMP4File(file);
           combinedText += transcribedText + " ";
-        } else {
-          // Handle text file as before
+        } else if (ext === "txt") {
+          // Handle text file
           const buffer = await file.arrayBuffer();
-          const text = Buffer.from(buffer).toString("utf-8");
-          combinedText += text.replace(/[\r\n]+/g, " ");
+          const text = new TextDecoder("utf-8").decode(buffer); // Use TextDecoder for better encoding support
+          combinedText += text.replace(/[\r\n]+/g, " "); // Replace newlines
+        } else {
+          console.error(`Unsupported file type: ${ext}`);
+          throw new Error(
+            "Unsupported file type. Only .mp4, .mov, and .txt are allowed."
+          );
         }
       }
     }

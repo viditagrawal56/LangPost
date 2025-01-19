@@ -5,6 +5,7 @@ LangPost is a powerful multilingual blogging platform that automatically transla
 ## ✨ Features
 
 ### 🔤 Multilingual Support
+
 - Automatic translation to multiple Indian languages:
   - Hindi (हिंदी)
   - Tamil (தமிழ்)
@@ -17,13 +18,15 @@ LangPost is a powerful multilingual blogging platform that automatically transla
   - Hungarian (Magyar)
 
 ### 🎯 Key Features
+
 - **Dual Translation Engine**: Utilizes both Google Translate and Reverie's translation APIs
 - **Quality Comparison**: BLEU score calculation to compare translation quality
-- **Rich Content Support**: 
+- **Rich Content Support**:
   - Text posts
   - Video transcription and translation
 
 ### 👥 Social Features
+
 - User profiles with bio and website
 - Follow other users
 - Tag-based content organization
@@ -44,22 +47,26 @@ LangPost is a powerful multilingual blogging platform that automatically transla
 ## 🚀 Getting Started
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/langpost.git
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Set up environment variables:
+
 ```env
 DATABASE_URL="your_mongodb_url"
 JWT_SECRET="your_jwt_secret"
 ```
 
 4. Run the development server:
+
 ```bash
 npm run dev
 ```
