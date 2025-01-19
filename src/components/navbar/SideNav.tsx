@@ -5,7 +5,7 @@ import Icon from "../Icon";
 
 const SideNav = () => {
   return (
-    <nav className="sticky top-[90px] left-0 flex justify-between flex-col h-[calc(100vh_-_110px)]">
+    <nav className="sticky top-[90px] left-0 flex justify-between flex-col h-[calc(100vh_-_110px)] ">
       <ul>
         {navLinks.map((link) => (
           <li key={link.id}>
@@ -91,49 +91,9 @@ export const navLinks = [
     icon: <Icon name="home" strokeWidth={1.25} />,
   },
   {
-    id: 2,
-    label: "Reading List",
-    icon: <Icon name="bookmark" strokeWidth={1.25} />,
-  },
-  {
-    id: 3,
-    label: "Listings",
-    icon: <Icon name="scroll-text" strokeWidth={1.25} />,
-  },
-  {
-    id: 4,
-    label: "Podcasts",
-    icon: <Icon name="mic" strokeWidth={1.25} />,
-  },
-  {
-    id: 5,
-    label: "Videos",
-    icon: <Icon name="youtube" strokeWidth={1.25} />,
-  },
-  {
     id: 6,
     label: "Tags",
     path: "/tags",
     icon: <Icon name="tag" strokeWidth={1.25} />,
-  },
-  {
-    id: 7,
-    label: "FAQ",
-    icon: <Icon name="lightbulb" strokeWidth={1.25} />,
-  },
-  {
-    id: 9,
-    label: "About",
-    icon: <Icon name="user" strokeWidth={1.25} />,
-  },
-  {
-    id: 10,
-    label: "Contact",
-    icon: <Icon name="contact" strokeWidth={1.25} />,
-  },
-  {
-    id: 11,
-    label: "Guides",
-    icon: <Icon name="book-open-check" strokeWidth={1.25} />,
   },
 ];
