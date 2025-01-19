@@ -35,7 +35,7 @@ const UploadPage = () => {
       console.log("Upload response:", data);
     } catch (error) {
       console.error("Upload error:", error);
-      setUploadStatus("Upload failed. Please try again.");
+      setUploadStatus("Upload failed.Please try again.");
     } finally {
       setIsUploading(false);
     }
