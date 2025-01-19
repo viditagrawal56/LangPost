@@ -46,7 +46,6 @@ async function translateTextGoogle(html: string, targetLang: string) {
         to: targetLang,
         html: html,
       }),
-      signal: AbortSignal.timeout(10000), // 10 second timeout
     };
 
     const response = await fetch(url, options);
@@ -83,7 +82,6 @@ async function translateTextRev(content: string) {
         enableLookup: true,
         data: [content],
       }),
-      signal: AbortSignal.timeout(10000), // 10 second timeout
     };
 
     const response = await fetch(url, options);
@@ -109,6 +107,8 @@ async function processMP4File(file: File) {
       method: "POST",
       body: formData,
     });
+
+
 
     if (!response.ok) {
       throw new Error(
@@ -178,7 +178,9 @@ export async function POST(request: NextRequest) {
     // Create translated versions
     for (const lang of targetLanguages) {
       try {
+
         await delay(1000); // Rate limiting
+
         const translatedContent = await translateTextGoogle(combinedText, lang);
 
         if (!translatedContent.trans) {

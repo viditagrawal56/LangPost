@@ -5,16 +5,14 @@ import Icon from "../Icon";
 
 const SideNav = () => {
   return (
-    <nav className="sticky top-[90px] left-0 flex justify-between flex-col h-[calc(100vh_-_110px)]">
+    <nav className="sticky top-[90px] left-0 flex justify-between flex-col h-[calc(100vh_-_110px)] ">
       <ul>
         {navLinks.map((link) => (
           <li key={link.id}>
             <Button
               href={link.path ? `${link.path}` : "/"}
-              className="justify-start text-black hover:underline hover:text-primary group"
+              className="justify-start text-black hover:underline bg-white hover:bg-gray-200 group"
               as={Link}
-              variant="light"
-              color="primary"
               fullWidth
             >
               <span>{link.icon}</span>

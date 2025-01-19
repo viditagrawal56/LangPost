@@ -20,7 +20,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <NextUIProvider>
-          <Navbar />
           <Toaster />
           {children}
         </NextUIProvider>
