@@ -106,7 +106,7 @@ const HomePage = async () => {
                 <h2 className="text-center text-sm font-medium font-heading text-neutral-400 uppercase">
                   Trusted by the best in the industry
                 </h2>
-                <AnimationContainer marquee delay={0.4}>
+                <AnimationContainer delay={0.4}>
                   <div className="mt-8">
                     <ul className="flex flex-wrap items-center gap-x-6 gap-y-6 md:gap-x-16 justify-center">
                       {COMPANIES.map((company, idx) => (

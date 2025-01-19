@@ -37,9 +37,6 @@ const AnimationContainer = ({
           <div className="flex space-x-4 animate-marquee whitespace-nowrap">
             {children}
           </div>
-          <div className="flex space-x-4 animate-marquee whitespace-nowrap">
-            {children}
-          </div>
         </div>
       ) : (
         children
