@@ -46,7 +46,6 @@ async function translateTextGoogle(html: string, targetLang: string) {
         to: targetLang,
         html: html,
       }),
-      signal: AbortSignal.timeout(10000), // 10 second timeout
     };
 
     const response = await fetch(url, options);
@@ -83,7 +82,6 @@ async function translateTextRev(content: string) {
         enableLookup: true,
         data: [content],
       }),
-      signal: AbortSignal.timeout(10000), // 10 second timeout
     };
 
     const response = await fetch(url, options);
