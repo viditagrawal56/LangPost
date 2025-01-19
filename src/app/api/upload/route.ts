@@ -181,7 +181,6 @@ export async function POST(request: NextRequest) {
     // Create translated versions
     for (const lang of targetLanguages) {
       try {
-        // await delay(1000); // Rate limiting
         const translatedContent = await translateTextGoogle(combinedText, lang);
 
         if (!translatedContent.trans) {
