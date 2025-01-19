@@ -105,10 +105,13 @@ async function processMP4File(file: File) {
     const formData = new FormData();
     formData.append("video", file);
 
-    const response = await fetch("https://1444-36-255-9-10.ngrok-free.app", {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      "https://1444-36-255-9-10.ngrok-free.app/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     if (!response.ok) {
       throw new Error(
@@ -178,7 +181,7 @@ export async function POST(request: NextRequest) {
     // Create translated versions
     for (const lang of targetLanguages) {
       try {
-        await delay(1000); // Rate limiting
+        // await delay(1000); // Rate limiting
         const translatedContent = await translateTextGoogle(combinedText, lang);
 
         if (!translatedContent.trans) {
