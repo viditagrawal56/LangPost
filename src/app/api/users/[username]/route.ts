@@ -1,6 +1,13 @@
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * @description     Get a user by username
+ * @route           GET /api/users/:username
+ * @access          Public
+ * @param {string}  username - The username of the user
+ * @returns         {object}  - The user data
+ */
 export async function GET(
   req: NextRequest,
   { params }: { params: { username: string } }

@@ -2,6 +2,20 @@ import prisma from "@/lib/db";
 import { getDataFromToken } from "@/utils/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * Handles follow/unfollow of a user by the current user.
+ *
+ * If the current user is already following the given user, it will
+ * unfollow the given user. Otherwise it will follow the given user.
+ *
+ * @param req - The request object.
+ * @param res - The response object.
+ * @returns The response object with a success message and a status of 200.
+ *          If the current user is not found, it will return a response object
+ *          with an error message and a status of 404. If there is an error
+ *          during the process, it will return a response object with an error
+ *          message and a status of 500.
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { userId } = await req.json();

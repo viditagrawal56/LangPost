@@ -2,6 +2,13 @@ import prisma from "@/lib/db";
 import { getDataFromToken } from "@/utils/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * @description     Get the dashboard for login user
+ * @route           GET /api/dashboard/:filter
+ * @access          protected
+ * @param {string}  filter - followers, following_users, following_tags
+ * @returns         {object} - the dashboard data
+ */
 export async function GET(
   req: NextRequest,
   { params }: { params: { filter: string } }
