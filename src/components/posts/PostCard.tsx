@@ -57,10 +57,10 @@ const PostCard = ({ post }: { post: TPost }) => {
         <CardBody className="py-0">
           <div className="flex items-center">
             <div className="flex-[2]">
-              <h3 className="text-2xl font-bold">
+              <h3 className="text-2xl font-bold text-black">
                 <Link
                   href={`/${post.author.username}/${post.path}`}
-                  className="hover:text-primary"
+                  className="hover:text-purple-400"
                 >
                   {post.title}
                 </Link>

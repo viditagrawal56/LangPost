@@ -13,7 +13,7 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import Icon from "../Icon";
 import EditorJS from "@editorjs/editorjs";
-import { convertImageToBase64 } from "@/utils/convertImageTobase64";
+import { convertImageToBase64 } from "@/lib/utils/convertImageTobase64";
 import { TPost } from "@/lib/types";
 
 type TForm = {

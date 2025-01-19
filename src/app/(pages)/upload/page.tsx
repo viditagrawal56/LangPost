@@ -1,5 +1,6 @@
 "use client";
 
+import Navbar from "@/components/navbar/Navbar";
 import HeroSection from "@/components/HeroSection";
 import React, { useState } from "react";
 
@@ -43,6 +44,7 @@ const UploadPage = () => {
 
   return (
     <div className="bg-gray-900 min-h-screen">
+      <Navbar />
       <HeroSection
         onFileUpload={handleFileUpload}
         isUploading={isUploading}
