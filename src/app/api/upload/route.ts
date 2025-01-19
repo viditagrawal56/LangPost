@@ -46,7 +46,6 @@ async function translateTextGoogle(html: string, targetLang: string) {
         to: targetLang,
         html: html,
       }),
-      signal: AbortSignal.timeout(10000), // 10 second timeout
     };
 
     const response = await fetch(url, options);
@@ -83,7 +82,6 @@ async function translateTextRev(content: string) {
         enableLookup: true,
         data: [content],
       }),
-      signal: AbortSignal.timeout(10000), // 10 second timeout
     };
 
     const response = await fetch(url, options);
@@ -106,7 +104,7 @@ async function processMP4File(file: File) {
     formData.append("video", file);
 
     const response = await fetch(
-      "https://ac9c-36-255-9-10.ngrok-free.app/upload",
+      "https://1444-36-255-9-10.ngrok-free.app/upload",
       {
         method: "POST",
         body: formData,
@@ -181,7 +179,6 @@ export async function POST(request: NextRequest) {
     // Create translated versions
     for (const lang of targetLanguages) {
       try {
-        await delay(1000); // Rate limiting
         const translatedContent = await translateTextGoogle(combinedText, lang);
 
         if (!translatedContent.trans) {
