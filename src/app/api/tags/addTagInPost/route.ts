@@ -1,6 +1,13 @@
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * @description     Get list of tags
+ * @route           GET /api/tags/addTagInPost
+ * @param           q: string (optional)
+ * @returns         Array of tags
+ * @throws          Error if failed to get tags
+ */
 export async function GET(req: NextRequest) {
   try {
     const query = req.nextUrl.searchParams.get("q");

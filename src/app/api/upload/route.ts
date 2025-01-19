@@ -19,6 +19,17 @@ const languageMap: { [key: string]: string } = {
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+/**
+ * Translates HTML content from English to a specified target language using Google Translate API.
+ *
+ * @param {string} html - The HTML content to be translated.
+ * @param {string} targetLang - The target language code for translation.
+ *
+ * @returns {Promise<any>} - A promise that resolves to the translated data.
+ *
+ * @throws {Error} - Throws an error if the HTTP request fails.
+ */
+
 async function translateTextGoogle(html: string, targetLang: string) {
   try {
     const url =
