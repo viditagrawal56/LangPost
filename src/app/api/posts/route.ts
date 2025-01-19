@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { title, content, image, type } = await req.json();
+    const { title, content, image, type, language } = await req.json();
 
     const makePath = title.split(" ").join("-").toLowerCase();
 
@@ -27,6 +27,7 @@ export async function POST(req: NextRequest) {
         path: makePath,
         authorId: userID,
         type,
+        language: language || "en",
       },
       include: {
         author: {
