@@ -48,18 +48,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               placeholder="Enter text to translate"
               className="flex-grow mr-4 bg-gray-800 text-white border-none focus:ring-2 focus:ring-blue-500"
             />
-            <div className="relative">
-              <select className="appearance-none bg-gray-800 text-white px-4 py-2 pr-8 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>English</option>
-                <option>Spanish</option>
-                <option>French</option>
-                <option>German</option>
-              </select>
-              <ChevronDown
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400"
-                size={20}
-              />
-            </div>
           </div>
 
           {/* Drag and drop area */}
