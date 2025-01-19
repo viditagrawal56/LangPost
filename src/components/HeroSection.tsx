@@ -77,7 +77,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               <p className="text-blue-500">Drop the files here ...</p>
             ) : (
               <p className="text-gray-400">
-                Drag 'n' drop some files here, or click to select files
+                Drag & drop some files here, or click to select files
               </p>
             )}
           </div>
