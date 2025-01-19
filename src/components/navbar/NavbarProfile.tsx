@@ -61,7 +61,7 @@ const NavbarProfile = () => {
             href={"/upload"}
             variant="ghost"
             color="primary"
-            className="border-1.5 group-hover:underline"
+            className="border-1.5 group-hover:underline text-black"
             radius="sm"
           >
             Write Post

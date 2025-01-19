@@ -9,7 +9,6 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <main className=" mx-auto w-full z-0 relative">{children}</main>
-      <Footer />
     </>
   );
 };

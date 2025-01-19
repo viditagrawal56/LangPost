@@ -1,6 +1,5 @@
 "use client";
 
-import RightAside from "@/components/RightAside";
 import Navbar from "@/components/navbar/Navbar";
 import PostCard from "@/components/posts/PostCard";
 import { TPost } from "@/lib/types";
@@ -12,6 +11,7 @@ import { setProgress } from "@/redux/commonSlice";
 import { useInView } from "react-intersection-observer";
 import React, { useEffect } from "react";
 import SideNav from "@/components/navbar/SideNav";
+import Footer from "@/components/navigation/footer";
 
 type PostWithTotalPage = {
   posts: TPost[];
@@ -131,9 +131,9 @@ export default function Home() {
               )}
             </div>
           </main>
-          <RightAside />
         </div>
       </div>
+      <Footer />
     </>
   );
 }

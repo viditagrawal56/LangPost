@@ -81,14 +81,7 @@ const PostArticle = ({ post }: { post: TPost }) => {
             {post.title}
           </h1>
         </header>
-        <div className="prose">
-          <Blocks
-            data={post.content}
-            renderers={{
-              checkList: Checklist,
-            }}
-          />
-        </div>
+        <div className="prose">{post.content}</div>
       </article>
       <hr className="pb-8" />
       <Comments post={post} />

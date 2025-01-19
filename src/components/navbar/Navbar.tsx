@@ -42,7 +42,7 @@ const Navbar = () => {
         onMenuOpenChange={setIsMenuOpen}
         isMenuOpen={isMenuOpen}
         maxWidth="full"
-        classNames={{ wrapper: "max-md:px-2" }}
+        className="bg-white"
       >
         <NavbarContent>
           <NavbarMenuToggle
@@ -59,7 +59,7 @@ const Navbar = () => {
               radius="sm"
               className=" bg-black/90 text-white"
             >
-              TEN
+              LP
             </Button>
           </NavbarBrand>
           {/* ---SEARCH BAR--- */}
@@ -85,14 +85,14 @@ const Navbar = () => {
               </Button>
             </NavbarItem>
 
-            <NavbarItem>
+            <NavbarItem className="text-black">
               <Button
                 as={Link}
                 href={"/signin"}
                 variant="light"
                 color="primary"
                 radius="sm"
-                className="max-md:hidden"
+                className="max-md:hidden text-black"
               >
                 Sign in
               </Button>
@@ -104,7 +104,7 @@ const Navbar = () => {
                 variant="ghost"
                 radius="sm"
                 color="primary"
-                className="border-1.5"
+                className="border-1.5 text-black"
                 role="link"
               >
                 Create account
@@ -117,9 +117,9 @@ const Navbar = () => {
             <NavbarMenuItem key={navMenu.id}>
               <Button
                 href="/"
-                className="justify-start"
+                className="justify-start text-black"
                 as={Link}
-                variant="light"
+                variant="solid"
                 fullWidth
               >
                 <span>{navMenu.label}</span>

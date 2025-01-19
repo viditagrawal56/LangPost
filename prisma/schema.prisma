@@ -42,18 +42,23 @@ enum PostType {
 }
 
 model Post {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  path      String?
-  image     String?
-  content   Json?
-  author    User        @relation(fields: [authorId], references: [id])
-  authorId  String      @db.ObjectId
-  tags      Tag[]       @relation(fields: [tagId], references: [id])
-  tagId     String[]    @db.ObjectId
-  comments  Comment[]
-  views     Int         @default(0)
-  type      PostType
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  path         String?
+  image        String?
+  content      Json?
+  author       User      @relation(fields: [authorId], references: [id])
+  authorId     String    @db.ObjectId
+  tags         Tag[]     @relation(fields: [tagId], references: [id])
+  tagId        String[]  @db.ObjectId
+  comments     Comment[]
+  views        Int       @default(0)
+  type         PostType
+  originalPost Post?     @relation("Translations", fields: [originalId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  originalId   String?   @db.ObjectId
+  translations Post[]    @relation("Translations")
+  language     String
+
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   saved     SavedPost[]

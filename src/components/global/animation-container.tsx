@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import React from "react";
 
 interface AnimationContainerProps {
   children: React.ReactNode;
   delay?: number;
   reverse?: boolean;
   className?: string;
-  marquee?: boolean; // Add marquee prop
+  marquee?: boolean; // Enable marquee behavior
 }
 
 const AnimationContainer = ({
@@ -24,8 +25,7 @@ const AnimationContainer = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false }}
       transition={{
-        duration: 0.2,
-        delay: delay,
+        duration: 2,
         ease: "easeInOut",
         type: "spring",
         stiffness: 260,
@@ -33,7 +33,10 @@ const AnimationContainer = ({
       }}
     >
       {marquee ? (
-        <div className="">
+        <div className="relative flex overflow-hidden">
+          <div className="flex space-x-4 animate-marquee whitespace-nowrap">
+            {children}
+          </div>
           <div className="flex space-x-4 animate-marquee whitespace-nowrap">
             {children}
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimationContainer, MaxWidthWrapper } from "@/components";
+import Footer from "@/components/navigation/footer";
 import Navbar from "@/components/navigation/navbar";
 import PricingCards from "@/components/pricing-cards";
 import { BentoCard, BentoGrid, CARDS } from "@/components/ui/bento-grid";
@@ -35,11 +36,11 @@ const HomePage = async () => {
         <Navbar />
         <div className="absolute inset-0 dark:bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] h-full" />
 
-        <div className="overflow-x-hidden scrollbar-hide size-full">
+        <div className="overflow-x-hidden scrollbar-hide size-full pt-20">
           {/* Hero Section */}
           <MaxWidthWrapper>
-            <div className="flex flex-col items-center justify-center w-full text-center bg-gradient-to-t from-background">
-              <AnimationContainer className="flex flex-col items-center justify-center w-full text-center">
+            <div className="flex flex-col items-center justify-center w-full text-center bg-gradient-to-t from-background ">
+              <AnimationContainer className="flex flex-col items-center justify-center w-full text-center pb-20">
                 <button className="group relative grid overflow-hidden rounded-full px-4 py-1 shadow-[0_1000px_0_0_hsl(0_0%_20%)_inset] transition-colors duration-200">
                   <span>
                     <span className="spark mask-gradient absolute inset-0 h-[100%] w-[100%] animate-flip overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:animate-rotate before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
@@ -51,7 +52,7 @@ const HomePage = async () => {
                     <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
                   </span>
                 </button>
-                <h1 className="text-foreground text-center py-6 text-5xl font-medium tracking-normal text-balance sm:text-6xl md:text-7xl lg:text-8xl !leading-[1.15] w-full font-heading">
+                <h1 className="text-foreground text-center py-6 text-5xl font-medium tracking-normal text-balance sm:text-6xl md:text-7xl lg:text-7xl !leading-[1.15] w-full font-heading">
                   AI-Powered Translations with{" "}
                   <span className="text-transparent bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text inline-bloc">
                     Precision
@@ -67,7 +68,7 @@ const HomePage = async () => {
                 </p>
                 <div className="flex items-center justify-center whitespace-nowrap gap-4 z-50">
                   <Button asChild>
-                    <Link href="#" className="flex items-center">
+                    <Link href="/signin" className="flex items-center">
                       Start translating for free
                       <ArrowRightIcon className="w-4 h-4 ml-2" />
                     </Link>
@@ -79,15 +80,17 @@ const HomePage = async () => {
                 delay={0.2}
                 className="relative pt-20 pb-20 md:py-32 px-2 bg-transparent w-full"
               >
-                <div className="absolute md:top-[10%] left-1/2 gradient w-3/4 -translate-x-1/2 h-1/4 md:h-1/3 inset-0 blur-[5rem] animate-image-glow"></div>
-                <div className="-m-2 rounded-xl p-2 ring-1 ring-inset ring-foreground/20 lg:-m-4 lg:rounded-2xl bg-opacity-50 backdrop-blur-3xl">
+                <div className="absolute md:top-[10%] left-1/2 gradient w-3/4 -translate-x-1/2 h-1/5 md:h-1/3 inset-0 blur-[5rem] animate-image-glow"></div>
+
+                <div className="-m-2 rounded-xl p-2 ring-1 ring-inset ring-foreground/20 lg:-m-4 lg:rounded-2xl bg-opacity-50 backdrop-blur-3xl overflow-hidden">
+                  <BorderBeam />
                   <Image
                     src="/assets/image.png"
                     alt="Dashboard"
-                    width={1200}
-                    height={1200}
+                    width={1000}
+                    height={1000}
                     quality={100}
-                    className="rounded-md lg:rounded-xl bg-foreground/10 ring-1 ring-border"
+                    className="rounded-md lg:rounded-xl bg-foreground/10 ring-1 mx-auto ring-border"
                   />
                   <div className="absolute -bottom-4 inset-x-0 w-full h-1/2 bg-gradient-to-t from-background z-40"></div>
                   <div className="absolute bottom-0 md:-bottom-8 inset-x-0 w-full h-1/4 bg-gradient-to-t from-background z-50"></div>
@@ -346,6 +349,7 @@ const HomePage = async () => {
             </AnimationContainer>
           </MaxWidthWrapper>
         </div>
+        <Footer />
       </div>
     </>
   );

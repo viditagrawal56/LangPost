@@ -1,5 +1,6 @@
 "use client";
 
+import Navbar from "@/components/navbar/Navbar";
 import HeroSection from "@/components/HeroSection";
 import React, { useState } from "react";
 
@@ -19,6 +20,8 @@ const UploadPage = () => {
         formData.append("files", file);
       });
 
+      formData.append("title", files[0].name.split(".")[0]);
+      formData.append("ext", files[0].name.split(".")[1]);
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
@@ -41,6 +44,7 @@ const UploadPage = () => {
 
   return (
     <div className="bg-gray-900 min-h-screen">
+      <Navbar />
       <HeroSection
         onFileUpload={handleFileUpload}
         isUploading={isUploading}
