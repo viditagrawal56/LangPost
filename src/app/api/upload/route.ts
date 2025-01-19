@@ -51,11 +51,39 @@ async function translateText(html: string, targetLang: string) {
   }
 }
 
+async function processMP4File(file: File) {
+  try {
+    const formData = new FormData();
+    formData.append("video", file);
+
+    const response = await fetch(
+      "https://ac9c-36-255-9-10.ngrok-free.app/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Video processing failed with status: ${response.status}`
+      );
+    }
+
+    const data = await response.json();
+    return data.text || ""; // Assuming the endpoint returns { text: "transcribed text" }
+  } catch (error) {
+    console.error("Video processing error:", error);
+    throw error;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const files = formData.getAll("files");
     const title = formData.get("title")?.toString() || "Untitled";
+    const ext = formData.get("ext")?.toString();
     const userId = await getDataFromToken(request);
     let combinedText = "";
 
@@ -69,11 +97,21 @@ export async function POST(request: NextRequest) {
     // Process uploaded files
     for (const file of files) {
       if (file instanceof File) {
-        const buffer = await file.arrayBuffer();
-        const text = Buffer.from(buffer).toString("utf-8");
-        combinedText += text.replace(/[\r\n]+/g, " ");
+        if (ext === "mp4" || ext === "mov") {
+          // Handle MP4 file
+          const transcribedText = await processMP4File(file);
+          combinedText += transcribedText + " ";
+        } else {
+          // Handle text file as before
+          const buffer = await file.arrayBuffer();
+          const text = Buffer.from(buffer).toString("utf-8");
+          combinedText += text.replace(/[\r\n]+/g, " ");
+        }
       }
     }
+
+    // Trim any extra whitespace
+    combinedText = combinedText.trim();
 
     // Create base English post
     const basePost = await prisma.post.create({
