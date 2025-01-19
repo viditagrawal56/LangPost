@@ -46,7 +46,7 @@ async function translateTextGoogle(html: string, targetLang: string) {
         to: targetLang,
         html: html,
       }),
-      signal: AbortSignal.timeout(10000), // 10 second timeout
+      signal: AbortSignal.timeout(100000), // 10 second timeout
     };
 
     const response = await fetch(url, options);
