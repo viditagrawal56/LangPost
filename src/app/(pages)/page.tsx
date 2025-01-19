@@ -1,6 +1,5 @@
 "use client";
 
-import RightAside from "@/components/RightAside";
 import SideNav from "@/components/navbar/SideNav";
 import PostCard from "@/components/posts/PostCard";
 import { TPost } from "@/lib/types";
@@ -127,7 +126,6 @@ export default function Home() {
             )}
           </div>
         </main>
-        <RightAside />
       </div>
     </div>
   );
