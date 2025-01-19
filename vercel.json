@@ -1,7 +1,0 @@
-{
-    "functions": {
-        "api/upload": {
-            "maxDuration": 20
-        }
-    }
-}
